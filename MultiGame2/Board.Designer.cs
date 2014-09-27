@@ -6,6 +6,19 @@ using System.Drawing;
 using System.Windows.Forms;
 
 
+#region Using Statements
+using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Storage;
+using Microsoft.Xna.Framework.GamerServices;
+using TankGame;
+#endregion
+
+
 
 
 
@@ -22,7 +35,7 @@ namespace MultiGame2
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.PictureBox pictureBox1;
         private List<WhatToPaint> ListToPaint = new List<WhatToPaint>();
-        private List<Image> tanksToPaint = new List<Image>();
+        private List<Sprite> tanksToPaint = new List<Sprite>();
         private int count = 0;
 
         /// <summary>
@@ -120,13 +133,28 @@ namespace MultiGame2
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.Clear(Color.White);
+            e.Graphics.Clear(System.Drawing.Color.White);
             e.Graphics.DrawImage(pictureBox1.InitialImage, 0, 0);
-            Image tank1 = Image.FromFile("tankSprites/T3485HD");
-            e.Graphics.DrawImage(tank1, new Point(150, 150));
+
+            //tankStuff
+            Image tank1 = TankGame.Properties.Resources.T3485HD;
+            e.Graphics.DrawImage(tank1, new System.Drawing.Point(150, 150));
+            //calculate turrent angle
+            foreach (Image wp in tanksToPaint)
+            {
+                Vector2 mousePosition = new Vector2(wp.X, wp.Y);
+                Vector2 dPos = tank1.Position - mousePosition;
+            }
+
+            tank1.Rotation = (float)Math.Atan2(dPos.Y, dPos.X);
+
+
+
+            //basic mousestuff
             foreach (WhatToPaint wp in ListToPaint)
             {
                 e.Graphics.DrawString(wp.Text, this.Font, Brushes.Black, wp.X, wp.Y);
+                tank1.Rotation = (float)Math.Atan2(dPos.Y, dPos.X);
                 
             }
         }

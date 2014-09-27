@@ -130,6 +130,7 @@ namespace MultiGame2
             {
                 //else ask them to enter one
                 MessageBox.Show(this, "Please enter a name");
+                textBox1.Focus();
             }
             
         

@@ -22,6 +22,7 @@ namespace MultiGame2
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.PictureBox pictureBox1;
         private List<WhatToPaint> ListToPaint = new List<WhatToPaint>();
+        private List<Image> tanksToPaint = new List<Image>();
         private int count = 0;
 
         /// <summary>
@@ -76,7 +77,8 @@ namespace MultiGame2
             this.FormClosed += new FormClosedEventHandler(onClose);
 
             //MouseListener
-
+            //initialize tanks
+            
             
 
         }
@@ -120,9 +122,12 @@ namespace MultiGame2
         {
             e.Graphics.Clear(Color.White);
             e.Graphics.DrawImage(pictureBox1.InitialImage, 0, 0);
+            Image tank1 = Image.FromFile("tankSprites/T3485HD");
+            e.Graphics.DrawImage(tank1, new Point(150, 150));
             foreach (WhatToPaint wp in ListToPaint)
             {
                 e.Graphics.DrawString(wp.Text, this.Font, Brushes.Black, wp.X, wp.Y);
+                
             }
         }
 

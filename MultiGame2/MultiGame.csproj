@@ -132,6 +132,14 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="tankSprites\T3485HD.png" />
+    <Content Include="tankSprites\T3485HG.png" />
+    <Content Include="tankSprites\T3485HW.png" />
+    <Content Include="tankSprites\T3485TD.png" />
+    <Content Include="tankSprites\T3485TG.png" />
+    <Content Include="tankSprites\T3485TW.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

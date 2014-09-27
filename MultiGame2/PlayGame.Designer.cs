@@ -116,16 +116,19 @@ namespace MultiGame2
         {
             string theText = this.textBox1.Text;
 
-            //Console.WriteLine("TextSize " + this.textBox1.Text.Trim().Length);
+            //Check the player has entered a name
             if (this.textBox1.Text.Trim().Length != 0)
             {
+                //if they have start a new game
                 textBox2.AppendText("PlayerName: " + this.textBox1.Text);
                 b = new Board();
                 b.Show();
+                this.Hide();
             
             }
             else
             {
+                //else ask them to enter one
                 MessageBox.Show(this, "Please enter a name");
             }
             

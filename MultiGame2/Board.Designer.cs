@@ -1,15 +1,28 @@
-﻿using System.Windows.Forms;
+﻿
+
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+
+
+
+
 
 namespace MultiGame2
 {
+
     partial class Board
     {
         /// <summary>
         /// Required designer variable.
         /// </summary>
+        /// 
+        
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private bool running = true;
+        private List<WhatToPaint> ListToPaint = new List<WhatToPaint>();
+        private int count = 0;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -33,7 +46,7 @@ namespace MultiGame2
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            this.MouseDown += new MouseEventHandler(this.Form_MouseDown);
+            
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             
@@ -45,6 +58,9 @@ namespace MultiGame2
             this.pictureBox1.Size = new System.Drawing.Size(928, 522);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new MouseEventHandler(this.mouseDown);
+            this.pictureBox1.MouseMove += new MouseEventHandler(this.mouseMove);
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
             // Board
             // 
@@ -67,7 +83,7 @@ namespace MultiGame2
 
         #endregion
 
-        private void Form_MouseDown(object sender, MouseEventArgs e)
+        private void mouseDown(object sender, MouseEventArgs e)
         {
             switch (e.Button)
             {
@@ -84,10 +100,38 @@ namespace MultiGame2
             }
 
         }
+        private void mouseMove(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine(e.X);
+            ListToPaint.Clear();
+            ListToPaint.Add(new WhatToPaint { X = 10, Y = 10, Text = "X: "+e.X });
+            count++;
+            ListToPaint.Add(new WhatToPaint { X = 10, Y = 40, Text = "Y: "+e.Y });
+            pictureBox1.Refresh();
+
+        }
 
         private void onClose(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.Clear(Color.White);
+            e.Graphics.DrawImage(pictureBox1.InitialImage, 0, 0);
+            foreach (WhatToPaint wp in ListToPaint)
+            {
+                e.Graphics.DrawString(wp.Text, this.Font, Brushes.Black, wp.X, wp.Y);
+            }
+        }
+
+
+        private class WhatToPaint
+        {
+            public int X { get; set; }
+            public int Y { get; set; }
+            public string Text { get; set; }
         }
 
 
